@@ -3,11 +3,20 @@ package com.devsuperior.demo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+//classe que define compenentes pelos métodos
 @Configuration
 public class SecurityConfig {
 
+	@Bean							//nome do meu método.
+	public PasswordEncoder getPasswordEncoder() {
+		//como tem o @Bean esse componente pode ser injetado em outros lugares
+		return new BCryptPasswordEncoder();
+	}
+		
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable());
